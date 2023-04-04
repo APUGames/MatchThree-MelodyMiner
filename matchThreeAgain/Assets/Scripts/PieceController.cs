@@ -8,7 +8,7 @@ public class PieceController : MonoBehaviour
 
     private void LateUpdate()
     {
-        GridController controller = GameObject.Find("GameManager").GetComponent<GridController>();
+        GridController controller = GameObject.Find("GridManager").GetComponent<GridController>();
         if (controller.IsDestroyed(piece.GetGridPosition()))
         {
             Destroy(gameObject);
@@ -21,7 +21,7 @@ public class PieceController : MonoBehaviour
         Vector2 seedPiece = piece.GetGridPosition();
         Debug.Log("X: " + seedPiece.x + " Y: " + seedPiece.y);
 
-        GridController controller = GameObject.Find("GameManager").GetComponent<GridController>();
+        GridController controller = GameObject.Find("GridManager").GetComponent<GridController>();
         controller.pressedDown = true;
         controller.pressedDownPosition = seedPiece;
         controller.pressedDownGameObject = this.gameObject;
@@ -33,14 +33,14 @@ public class PieceController : MonoBehaviour
         Vector2 seedPiece = piece.GetGridPosition();
         Debug.Log("X: " + seedPiece.x + " Y: " + seedPiece.y);
 
-        GridController controller = GameObject.Find("GameManager").GetComponent<GridController>();
+        GridController controller = GameObject.Find("GridManager").GetComponent<GridController>();
         controller.pressedDown = false;
         controller.pressedDownPosition = Vector2.zero;
     }
 
     private void OnMouseOver()
     {
-        GridController controller = GameObject.Find("GameManager").GetComponent<GridController>();
+        GridController controller = GameObject.Find("GridManager").GetComponent<GridController>();
         Vector2 seedPiece = piece.GetGridPosition();
 
         if (controller.pressedDown && (controller.pressedDownPosition != seedPiece))
