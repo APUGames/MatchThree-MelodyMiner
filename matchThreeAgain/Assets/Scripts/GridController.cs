@@ -22,6 +22,8 @@ public class GridController : MonoBehaviour
     private Material pieceFiveMaterial;
     [SerializeField]
     private Material pieceSixMaterial;
+    [SerializeField]
+    private Material pieceSevenMaterial;
     private Piece[,] grid = new Piece[8, 8];
     void Start()
     {
@@ -36,7 +38,7 @@ public class GridController : MonoBehaviour
 
                 GameObject gameObject = Instantiate(piecePrefab, grid[row, column].GetPosition(), Quaternion.identity);
                 int theNumber = rand.Next(0, 60);
-                if (theNumber > 10 && theNumber < 0)
+                if (theNumber > 0 && theNumber < 10)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceOneMaterial;
@@ -66,6 +68,11 @@ public class GridController : MonoBehaviour
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceFiveMaterial;
+                }
+                else
+                {
+                    var gameObjectRenderer = gameObject.GetComponent<Renderer>();
+                    gameObjectRenderer.material = pieceSevenMaterial;
                 }
             }
         }

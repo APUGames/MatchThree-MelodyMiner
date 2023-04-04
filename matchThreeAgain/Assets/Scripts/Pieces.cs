@@ -8,6 +8,7 @@ public enum PieceTypes
     catKiss = 3,
     cursedCat = 4,
     sadCat = 5,
+    longCat = 6,
 }
 
 public class Piece
