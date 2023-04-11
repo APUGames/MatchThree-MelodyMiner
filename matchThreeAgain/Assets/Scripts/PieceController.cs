@@ -8,6 +8,7 @@ public class PieceController : MonoBehaviour
 
     private void LateUpdate()
     {
+
         GridController controller = GameObject.Find("GridManager").GetComponent<GridController>();
         if (controller.IsDestroyed(piece.GetGridPosition()))
         {

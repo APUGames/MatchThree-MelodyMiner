@@ -118,6 +118,52 @@ public class GridController : MonoBehaviour
         matchesFoundText.GetComponent<Text>().text = matchesFound.ToString();
     }
 
+    private Piece GetGridPiece(int row, int column)
+    {
+        Piece foundPiece;
+        try
+        {
+            foundPiece = grid[row, column];
+            if (foundPiece == null || foundPiece.GetDestruction())
+            {
+                return null;
+            }
+
+            return foundPiece;
+        }
+        catch (IndexOutOfRangeException)
+        {
+        }
+
+        return null;
+    }
+
+    private Piece GetGridPiece(int row, int column, bool isDestroyed)
+    {
+        Piece foundPiece;
+        try
+        {
+            foundPiece = grid[row, column];
+            if (foundPiece == null)
+            {
+                return null;
+            }
+
+            if (!isDestroyed)
+            {
+                return null;
+            }
+
+            return foundPiece;
+        }
+        catch (IndexOutOfRangeException)
+        {
+        }
+
+        return null;
+    }
+
+
     public void ValidMove(Vector2 start, Vector2 end)
     {
         startMovementPiecePosition = start;
@@ -231,11 +277,41 @@ public class GridController : MonoBehaviour
             }
         }
 
+        if (!matchFound)
+        {
+            try
+            {
+                Piece abovePiece = GetGridPiece((int)end.x, (int)end.y + 1);
+                Piece aboveAbovePiece = GetGridPiece((int)end.x, (int)end.y + 2);
+                Piece checkPiece4 = GetGridPiece((int)start.x, (int)start.y);
+                if (abovePiece.GetPieceType() == aboveAbovePiece.GetPieceType())
+                {
+                    if (abovePiece.GetPieceType() == checkPiece4.GetPieceType())
+                    {
+                        matchFound = true;
+                        validMoveInProcess = true;
+                        Piece toDestroy2 = GetGridPiece((int)end.x, (int)end.y);
+
+                        abovePiece.SetForDestruction();
+                        aboveAbovePiece.SetForDestruction();
+                        toDestroy2.SetForDestruction();
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
     }
 
     public bool IsDestroyed(Vector2 gridPosition)
     {
-        Piece piece = grid[(int)gridPosition.x, (int)gridPosition.y];
-        return piece.GetDestruction();
+        Piece piece = GetGridPiece((int)gridPosition.x, (int)gridPosition.y, true);
+        if (piece != null)
+        {
+            return piece.GetDestruction();
+        }
+        return false;
     }
 }
