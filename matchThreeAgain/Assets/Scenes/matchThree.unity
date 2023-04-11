@@ -252,6 +252,8 @@ GameObject:
   m_Component:
   - component: {fileID: 347582529}
   - component: {fileID: 347582528}
+  - component: {fileID: 347582530}
+  - component: {fileID: 347582531}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -281,6 +283,13 @@ MonoBehaviour:
   pieceFiveMaterial: {fileID: 2100000, guid: 90d0785f52f33e84e9f67fddd3e81327, type: 2}
   pieceSixMaterial: {fileID: 2100000, guid: 7dda8af8e560ea64897fa570e53b43c8, type: 2}
   pieceSevenMaterial: {fileID: 2100000, guid: d12025a56f8459948abc1bb1e1e1faf6, type: 2}
+  pressedDown: 0
+  pressedDownPosition: {x: 0, y: 0}
+  pressedDownGameObject: {fileID: 0}
+  pressedUpPosition: {x: 0, y: 0}
+  pressedUpGameObject: {fileID: 0}
+  matchesFoundText: {fileID: 0}
+  validMoveInProcess: 0
 --- !u!4 &347582529
 Transform:
   m_ObjectHideFlags: 0
@@ -296,6 +305,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &347582530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347582527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d1b5e6fffee2549a001b73a19071ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &347582531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347582527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b455fc0f20f6105429a71c653f730bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1376551926
 GameObject:
   m_ObjectHideFlags: 0
