@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 347582530}
   - component: {fileID: 347582531}
   m_Layer: 0
-  m_Name: GridManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329,6 +329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b455fc0f20f6105429a71c653f730bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  gridPosition: {x: 0, y: 0}
+  pieceType: 1
+  setForDestruction: 0
 --- !u!1 &1376551926
 GameObject:
   m_ObjectHideFlags: 0
