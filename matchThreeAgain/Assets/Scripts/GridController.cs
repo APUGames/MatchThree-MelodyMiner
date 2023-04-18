@@ -10,7 +10,7 @@ public class GridController : MonoBehaviour
     [SerializeField]
     private Vector3 originPosition;
 
-    [Header("Piece Colors")]
+    [Header("Piece Colours")]
     [SerializeField]
     private Material pieceOneMaterial;
     [SerializeField]
@@ -34,7 +34,7 @@ public class GridController : MonoBehaviour
 
     [Header("UI")]
     [SerializeField]
-    private GameObject matchesFoundText;
+  //  private GameObject matchesFoundText;
 
     private Vector2 startMovementPiecePosition;
     private Vector2 endMovementPiecePosition;
@@ -46,6 +46,10 @@ public class GridController : MonoBehaviour
     private Piece[,] grid = new Piece[8, 8];
     void Start()
     {
+        matchesFound = 0;
+
+        pressedDown = false;
+
         System.Random rand = new System.Random();
 
         for (int row = 0; row < grid.GetLength(0); row++)
@@ -53,46 +57,46 @@ public class GridController : MonoBehaviour
             for (int column = 0; column < grid.GetLength(1); column++)
             {
                 Vector3 newWorldPosition = new Vector3(originPosition.x + row, originPosition.y, originPosition.z - column);
-                grid[row, column] = new Piece(newWorldPosition, new Vector2(row, column));
+                Piece newPiece = new Piece(newWorldPosition, new Vector2(row, column));
+                GameObject gameObject = Instantiate(piecePrefab, newPiece.GetPosition(), Quaternion.identity);
 
-                GameObject gameObject = Instantiate(piecePrefab, grid[row, column].GetPosition(), Quaternion.identity);
-                int theNumber = rand.Next(0, 60);
-                if (theNumber > 0 && theNumber < 10)
+                int theNumber = rand.Next(13, 101);
+                if (theNumber > 30 && theNumber < 45)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceOneMaterial;
                 }
-                else if (theNumber >= 10 && theNumber < 20)
+                else if (theNumber >= 45 && theNumber < 60)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceFourMaterial;
                 }
-                else if (theNumber >= 20 && theNumber < 30)
+                else if (theNumber >= 60 && theNumber < 85)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
 
                     gameObjectRenderer.material = pieceSecondMaterial;
                 }
-                else if (theNumber >= 30 && theNumber < 40)
+                else if (theNumber >= 85 && theNumber < 101)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceThirdMaterial;
                 }
-                else if (theNumber >= 40 && theNumber < 50)
+                else if (theNumber >= 10 && theNumber < 30)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceSixMaterial;
                 }
-                else if (theNumber >= 50 && theNumber < 60)
+                else if (theNumber >= 101 && theNumber < 130)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceFiveMaterial;
                 }
-                else
-                {
-                    var gameObjectRenderer = gameObject.GetComponent<Renderer>();
-                    gameObjectRenderer.material = pieceSevenMaterial;
-                }
+
+                PieceController controller = gameObject.GetComponent<PieceController>();
+                controller.SetPiece(newPiece);
+                grid[row, column] = newPiece;
+               
             }
         }
     }
@@ -115,7 +119,7 @@ public class GridController : MonoBehaviour
             matchesFound += 1;
         }
 
-        matchesFoundText.GetComponent<Text>().text = matchesFound.ToString();
+     //   matchesFoundText.GetComponent<Text>().text = matchesFound.ToString();
     }
 
     private Piece GetGridPiece(int row, int column)

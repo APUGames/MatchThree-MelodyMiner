@@ -13,7 +13,7 @@ public enum PieceTypes
     longCat = 6,
 }
 
-public class Piece : MonoBehaviour
+public class Piece
 {
     private Vector3 position;
     private Vector2 gridPosition;
@@ -25,18 +25,23 @@ public class Piece : MonoBehaviour
         position = Vector3.zero;
         gridPosition = Vector2.zero;
         pieceType = PieceTypes.popCat;
+        setForDestruction = false;
     }
     public Piece(Vector3 position, Vector2 gridPosition)
     {
         this.position = position;
         this.gridPosition = gridPosition;
         this.pieceType = PieceTypes.catJAM;
+        this.setForDestruction = false;
+
     }
     public Piece(Vector3 position, Vector2 gridPosition, PieceTypes pieceType)
     {
         this.position = position;
         this.gridPosition = gridPosition;
         this.pieceType = pieceType;
+        this.setForDestruction = false;
+
     }
     public void SetForDestruction()
     {
