@@ -34,7 +34,7 @@ public class GridController : MonoBehaviour
 
     [Header("UI")]
     [SerializeField]
-  //  private GameObject matchesFoundText;
+    private GameObject matchesFoundText;
 
     private Vector2 startMovementPiecePosition;
     private Vector2 endMovementPiecePosition;
@@ -138,6 +138,10 @@ public class GridController : MonoBehaviour
         catch (IndexOutOfRangeException)
         {
         }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
 
         return null;
     }
@@ -165,6 +169,20 @@ public class GridController : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void SubtractMove()
+    {
+        // Subtract one from turns left in the game manager
+        GameManager gameManager = gameObject.GetComponent<GameManager>();
+        gameManager.SubtractOneFromTurnsLeft();
+    }
+
+    private void AddMatchesFound()
+    {
+        // Subtract one from turns left in the game manager
+        GameManager gameManager = gameObject.GetComponent<GameManager>();
+        gameManager.AddOneToMatchesFound();
     }
 
 
