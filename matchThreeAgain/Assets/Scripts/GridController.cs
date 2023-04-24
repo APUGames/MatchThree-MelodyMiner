@@ -39,7 +39,7 @@ public class GridController : MonoBehaviour
     private Vector2 startMovementPiecePosition;
     private Vector2 endMovementPiecePosition;
 
-    public bool validMoveInProcess = false;
+    private bool validMoveInProcess = false;
 
     private int matchesFound;
 
@@ -104,19 +104,23 @@ public class GridController : MonoBehaviour
     {
         if (validMoveInProcess)
         {
-
             Vector3 placeHolderPosition = pressedDownGameObject.transform.position;
             pressedDownGameObject.transform.position = pressedUpGameObject.transform.position;
             pressedUpGameObject.transform.position = placeHolderPosition;
 
-            // Update the data layer to match the visual layer
             Piece placeHolderPiece = grid[(int)endMovementPiecePosition.x, (int)endMovementPiecePosition.y];
             grid[(int)endMovementPiecePosition.x, (int)endMovementPiecePosition.y] = grid[(int)startMovementPiecePosition.x, (int)startMovementPiecePosition.y];
             grid[(int)startMovementPiecePosition.x, (int)startMovementPiecePosition.y] = placeHolderPiece;
+            grid[(int)endMovementPiecePosition.x, (int)endMovementPiecePosition.y].SetGridPosition(endMovementPiecePosition);
+            grid[(int)endMovementPiecePosition.x, (int)endMovementPiecePosition.y].SetForDestruction(true);
+
+            grid[(int)startMovementPiecePosition.x, (int)startMovementPiecePosition.y].SetGridPosition(startMovementPiecePosition);
+            grid[(int)startMovementPiecePosition.x, (int)startMovementPiecePosition.y].SetForDestruction(false);
+
 
             validMoveInProcess = false;
 
-            matchesFound += 1;
+            AddMatchesFound();
         }
 
      //   matchesFoundText.GetComponent<Text>().text = matchesFound.ToString();
@@ -145,7 +149,16 @@ public class GridController : MonoBehaviour
 
         return null;
     }
-
+    private void SubtractMove()
+    {
+        GameManager gameManager = gameObject.GetComponent<GameManager>();
+        gameManager.SubtractOneFromTurnsLeft();
+    }
+    private void AddMatchesFound()
+    {
+        GameManager gameManager = gameObject.GetComponent<GameManager>();
+        gameManager.AddOneToMatchesFound();
+    }
     private Piece GetGridPiece(int row, int column, bool isDestroyed)
     {
         Piece foundPiece;
@@ -171,19 +184,6 @@ public class GridController : MonoBehaviour
         return null;
     }
 
-    private void SubtractMove()
-    {
-        // Subtract one from turns left in the game manager
-        GameManager gameManager = gameObject.GetComponent<GameManager>();
-        gameManager.SubtractOneFromTurnsLeft();
-    }
-
-    private void AddMatchesFound()
-    {
-        // Subtract one from turns left in the game manager
-        GameManager gameManager = gameObject.GetComponent<GameManager>();
-        gameManager.AddOneToMatchesFound();
-    }
 
 
     public void ValidMove(Vector2 start, Vector2 end)
@@ -195,106 +195,140 @@ public class GridController : MonoBehaviour
 
         if (!matchFound)
         {
-
             try
             {
-                Piece topPiece1 = grid[(int)end.x, (int)end.y - 1];
-                Piece bottomPiece1 = grid[(int)end.x, (int)end.y + 1];
-                Piece midPiece1 = grid[(int)start.x, (int)start.y];
-                Piece toDestroy1 = grid[(int)end.x, (int)end.y];
+                Piece topPiece1 = GetGridPiece((int)end.x, (int)end.y - 1);
+                Piece bottomPiece1 = GetGridPiece((int)end.x, (int)end.y + 1);
+                Debug.Log("Top piece type: " + topPiece1.GetPieceType());
+                Debug.Log("Bottom piece type: " + bottomPiece1.GetPieceType());
+                Piece midPiece1 = GetGridPiece((int)start.x, (int)start.y);
+                Piece toDestroy1 = GetGridPiece((int)end.x, (int)end.y);
+                Debug.Log("Middle piece type: " + midPiece1.GetPieceType());
                 if (topPiece1.GetPieceType() == bottomPiece1.GetPieceType())
                 {
                     if (topPiece1.GetPieceType() == midPiece1.GetPieceType())
                     {
-                        matchFound = true;
-                        validMoveInProcess = true;
-                        topPiece1.SetForDestruction();
-                        bottomPiece1.SetForDestruction();
-                        toDestroy1.SetForDestruction();
+                        if (start.x != end.x)
+                        {
+                            matchFound = true;
+                            validMoveInProcess = true;
+                            topPiece1.SetForDestruction();
+                            bottomPiece1.SetForDestruction();
+                            toDestroy1.SetForDestruction();
+                            Debug.Log("MATCHED");
+                        }
                     }
                 }
             }
-            catch (IndexOutOfRangeException)  // CS0168
+            catch (IndexOutOfRangeException)
             {
-                // Set IndexOutOfRangeException to the new exception's InnerException.
             }
         }
 
         if (!matchFound)
         {
-
             try
             {
-                Piece leftPiece = grid[(int)end.x - 1, (int)end.y];
-                Piece leftLeftPiece = grid[(int)end.x - 2, (int)end.y];
-                Piece checkPiece1 = grid[(int)start.x, (int)start.y];
+                Piece leftPiece = GetGridPiece((int)end.x - 1, (int)end.y);
+                Piece leftLeftPiece = GetGridPiece((int)end.x - 2, (int)end.y);
+                Piece checkPiece1 = GetGridPiece((int)start.x, (int)start.y);
                 if (leftPiece.GetPieceType() == leftLeftPiece.GetPieceType())
                 {
                     if (leftPiece.GetPieceType() == checkPiece1.GetPieceType())
                     {
+                        matchFound = true;
                         validMoveInProcess = true;
                         Piece toDestroy2 = grid[(int)end.x, (int)end.y];
 
                         leftPiece.SetForDestruction();
                         leftLeftPiece.SetForDestruction();
                         toDestroy2.SetForDestruction();
+                        Debug.Log("MATCHED");
                     }
                 }
             }
-            catch (IndexOutOfRangeException) 
+            catch (NullReferenceException)
             {
-                // Set IndexOutOfRangeException to the new exception's InnerException.
             }
         }
 
         if (!matchFound)
         {
-
             try
             {
-                Piece rightPiece = grid[(int)end.x + 1, (int)end.y];
-                Piece rightRightPiece = grid[(int)end.x + 2, (int)end.y];
-                Piece checkPiece2 = grid[(int)start.x, (int)start.y];
+                Piece belowPiece = GetGridPiece((int)end.x, (int)end.y + 1);
+                Piece belowBelowPiece = GetGridPiece((int)end.x, (int)end.y + 2);
+                Piece checkPiece4 = GetGridPiece((int)start.x, (int)start.y);
+                if (belowPiece.GetPieceType() == belowBelowPiece.GetPieceType())
+                {
+                    if (belowPiece.GetPieceType() == checkPiece4.GetPieceType())
+                    {
+                        matchFound = true;
+                        validMoveInProcess = true;
+                        Piece toDestroy2 = GetGridPiece((int)end.x, (int)end.y);
+
+                        belowPiece.SetForDestruction();
+                        belowBelowPiece.SetForDestruction();
+                        toDestroy2.SetForDestruction();
+
+                        Debug.Log("MATCHED");
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+        if (!matchFound)
+        {
+            try
+            {
+                Piece rightPiece = GetGridPiece((int)end.x + 1, (int)end.y);
+                Piece rightRightPiece = GetGridPiece((int)end.x + 2, (int)end.y);
+                Piece checkPiece2 = GetGridPiece((int)start.x, (int)start.y);
                 if (rightPiece.GetPieceType() == rightRightPiece.GetPieceType())
                 {
                     if (rightPiece.GetPieceType() == checkPiece2.GetPieceType())
                     {
+                        matchFound = true;
                         validMoveInProcess = true;
-                        Piece toDestroy2 = grid[(int)end.x, (int)end.y];
+                        Piece toDestroy2 = GetGridPiece((int)end.x, (int)end.y);
 
                         rightPiece.SetForDestruction();
                         rightRightPiece.SetForDestruction();
                         toDestroy2.SetForDestruction();
+                        Debug.Log("MATCHED");
                     }
                 }
             }
-            catch (IndexOutOfRangeException)  
+            catch (NullReferenceException)
             {
             }
         }
 
         if (!matchFound)
         {
-
             try
             {
-                Piece rightPiece = grid[(int)end.x + 1, (int)end.y];
-                Piece leftPiece = grid[(int)end.x - 1, (int)end.y];
-                Piece checkPiece3 = grid[(int)start.x, (int)start.y];
+                Piece rightPiece = GetGridPiece((int)end.x + 1, (int)end.y);
+                Piece leftPiece = GetGridPiece((int)end.x - 1, (int)end.y);
+                Piece checkPiece3 = GetGridPiece((int)start.x, (int)start.y);
                 if (rightPiece.GetPieceType() == leftPiece.GetPieceType())
                 {
                     if (rightPiece.GetPieceType() == checkPiece3.GetPieceType())
                     {
+                        matchFound = true;
                         validMoveInProcess = true;
-                        Piece toDestroy2 = grid[(int)end.x, (int)end.y];
+                        Piece toDestroy2 = GetGridPiece((int)end.x, (int)end.y);
 
                         rightPiece.SetForDestruction();
                         leftPiece.SetForDestruction();
                         toDestroy2.SetForDestruction();
+                        Debug.Log("MATCHED");
                     }
                 }
             }
-            catch (IndexOutOfRangeException)  
+            catch (NullReferenceException)
             {
             }
         }
@@ -324,6 +358,7 @@ public class GridController : MonoBehaviour
             {
             }
         }
+        SubtractMove();
 
     }
 

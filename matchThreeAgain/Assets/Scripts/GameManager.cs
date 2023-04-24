@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
             gameOverPanelGameObject.SetActive(true);
             if (matchesFound >= scoreToMatch)
             {
-                gameResultText.text = "You won!";
+                gameResultText.text = "You did it!";
             }
             else
             {

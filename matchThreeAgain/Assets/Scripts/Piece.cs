@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,7 +47,10 @@ public class Piece
     {
         this.setForDestruction = true;
     }
-
+    public void SetForDestruction(bool value)
+    {
+        this.setForDestruction = value;
+    }
     public void SetPieceType(PieceTypes pieceType)
     {
         this.pieceType = pieceType;

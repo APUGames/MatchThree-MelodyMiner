@@ -493,8 +493,7 @@ MonoBehaviour:
   pressedDownGameObject: {fileID: 0}
   pressedUpPosition: {x: 0, y: 0}
   pressedUpGameObject: {fileID: 0}
-  matchesFoundText: {fileID: 0}
-  validMoveInProcess: 0
+  matchesFoundText: {fileID: 773986576}
 --- !u!4 &347582529
 Transform:
   m_ObjectHideFlags: 0
@@ -522,8 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df68bfa8e08f0946a8c2127f6c75bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnsLeft: 15
-  scoreToMatch: 5
+  turnsLeft: 5
+  scoreToMatch: 3
   turnsLeftText: {fileID: 1385601680}
   gameResultText: {fileID: 896997734}
   gameOverPanelGameObject: {fileID: 200097662}
@@ -628,9 +627,9 @@ RectTransform:
   m_Father: {fileID: 1386346878}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1473, y: 891}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -447, y: -189}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773986578
@@ -790,9 +789,9 @@ RectTransform:
   m_Father: {fileID: 200097663}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -563}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 517}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1084710795
@@ -1008,9 +1007,9 @@ RectTransform:
   m_Father: {fileID: 1386346878}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1504, y: 891}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 416, y: -189}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1385601680
