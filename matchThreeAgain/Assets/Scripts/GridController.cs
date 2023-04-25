@@ -61,7 +61,7 @@ public class GridController : MonoBehaviour
                 GameObject gameObject = Instantiate(piecePrefab, newPiece.GetPosition(), Quaternion.identity);
                 System.Random rand = new System.Random();
 
-                int theNumber = rand.Next(13, 130);
+                int theNumber = rand.Next(13, 135);
                 if (theNumber > 30 && theNumber < 45)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
@@ -98,6 +98,12 @@ public class GridController : MonoBehaviour
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceFiveMaterial;
                     newPiece.SetPieceType(PieceTypes.cursedCat);
+                }
+                else
+                {
+                    var gameObjectRenderer = gameObject.GetComponent<Renderer>();
+                    gameObjectRenderer.material = pieceSevenMaterial;
+                    newPiece.SetPieceType(PieceTypes.longCat);
                 }
 
                 PieceController controller = gameObject.GetComponent<PieceController>();
