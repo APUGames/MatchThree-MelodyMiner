@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // Manage the player's amount of turns of left
+    
     [SerializeField]
     private int turnsLeft;
     [SerializeField]

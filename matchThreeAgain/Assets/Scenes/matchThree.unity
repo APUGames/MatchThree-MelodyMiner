@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df68bfa8e08f0946a8c2127f6c75bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnsLeft: 5
+  turnsLeft: 8
   scoreToMatch: 3
   turnsLeftText: {fileID: 1385601680}
   gameResultText: {fileID: 896997734}

@@ -50,7 +50,7 @@ public class GridController : MonoBehaviour
 
         pressedDown = false;
 
-        System.Random rand = new System.Random();
+        //System.Random rand = new System.Random();
 
         for (int row = 0; row < grid.GetLength(0); row++)
         {
@@ -59,38 +59,45 @@ public class GridController : MonoBehaviour
                 Vector3 newWorldPosition = new Vector3(originPosition.x + row, originPosition.y, originPosition.z - column);
                 Piece newPiece = new Piece(newWorldPosition, new Vector2(row, column));
                 GameObject gameObject = Instantiate(piecePrefab, newPiece.GetPosition(), Quaternion.identity);
+                System.Random rand = new System.Random();
 
-                int theNumber = rand.Next(13, 101);
+                int theNumber = rand.Next(13, 130);
                 if (theNumber > 30 && theNumber < 45)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceOneMaterial;
+                    newPiece.SetPieceType(PieceTypes.crumbDance);
                 }
                 else if (theNumber >= 45 && theNumber < 60)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceFourMaterial;
+                    newPiece.SetPieceType(PieceTypes.catKiss);
                 }
                 else if (theNumber >= 60 && theNumber < 85)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
-
                     gameObjectRenderer.material = pieceSecondMaterial;
+                    newPiece.SetPieceType(PieceTypes.popCat);
+
                 }
                 else if (theNumber >= 85 && theNumber < 101)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceThirdMaterial;
+                    newPiece.SetPieceType(PieceTypes.catJAM);
                 }
                 else if (theNumber >= 10 && theNumber < 30)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceSixMaterial;
+                    newPiece.SetPieceType(PieceTypes.sadCat);
                 }
                 else if (theNumber >= 101 && theNumber < 130)
                 {
                     var gameObjectRenderer = gameObject.GetComponent<Renderer>();
                     gameObjectRenderer.material = pieceFiveMaterial;
+                    newPiece.SetPieceType(PieceTypes.cursedCat);
                 }
 
                 PieceController controller = gameObject.GetComponent<PieceController>();
