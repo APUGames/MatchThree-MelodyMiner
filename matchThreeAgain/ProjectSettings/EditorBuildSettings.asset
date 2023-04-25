@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: b28824de54d91e8439383131c9c12cd6
+  - enabled: 1
+    path: Assets/Scenes/matchThree.unity
+    guid: 0662929f442e04c4c940b1b4bcc7e075
   m_configObjects: {}
